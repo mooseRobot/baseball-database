@@ -1,0 +1,89 @@
+<!-- index.hbs -->
+<h1>The server is running!</h1>
+<p>If you see this text, the server is <strong>definitely</strong> working!</p>
+
+
+
+
+{{!-- Create a table --}}
+<table id="teams-table">
+
+    {{!-- Header section --}}
+    <thead>
+
+        {{!-- For just the first row, we print each key of the row object as a header cell so we
+        know what each column means when the page renders --}}
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    {{!-- Body section --}}
+    <tbody>
+
+        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+        {{#each data}}
+        <tr>
+            <td>{{this.teamname}}</td>
+            <td>{{this.location}}</td>
+            <td>{{this.gameswon}}</td>
+            <td>{{this.gameslost}}</td>
+
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+
+
+
+{{!-- Form to add a record to the table  --}}
+<h2>Adding Data with AJAX</h2>
+<p>To add a new team, please enter their information below and click 'Submit'!</p>
+<form id="add-team-form-ajax">
+    <label for="input-teamname">Teamname: </label>
+    <input type="text" name="input-teamname" id="input-teamname">
+    
+    <label for="input-location">Location: </label>
+    <input type="text" name="input-location" id="input-location">
+
+    <label for="input-gameswon">Games Won: </label>
+    <input type="number" name="input-gameswon" id="input-gameswon">
+
+    <label for="input-gameslost">Games Lost: </label>
+    <input type="number" name="input-gameslost" id="input-gameslost">
+
+    <input type="submit">
+</form>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_team.js"></script>
+
+
+
+
+<!-- /views/index.hbs -->
+<h2>Adding Data using an HTML form</h2>
+<p>To add a new team, please enter their information below nad click `Submit`!</p>
+<form id="add-team-form" method="POST" action="/add-team-form">
+    <label for="input-teamname">Team Name: </label>
+    <input type="text" name="input-teamname" id="input-teamname">
+    
+    <label for="input-location">Location: </label>
+    <input type="text" name="input-location" id="input-location">
+
+    <label for="input-gameswon">Games Won: </label>
+    <input type="number" name="input-gameswon" id="input-gameswon">
+
+    <label for="input-gameslost">Games Lost: </label>
+    <input type="number" name="input-gameslost" id="input-gameslost">
+
+    <input type="submit">
+</form>
+
+
+
