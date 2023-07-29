@@ -8,7 +8,7 @@ var app     = express();            // We need to instantiate an express object 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static('public'))
-PORT        = 10503;                 // Set a port number at the top so it's easy to change in the future
+PORT        = 10544;                 // Set a port number at the top so it's easy to change in the future
 
 
 // app.js
@@ -29,15 +29,92 @@ var db = require('./database/db-connector')
 // app.js
 
 
-    app.get('/', function(req, res)
-    {  
-        let query1 = "SELECT * FROM teams;";               // Define our query
+app.get('/', function(req, res)
+    {
+        // Declare Query 1
+        let query1;
+    
+        // If there is no query string, we just perform a basic SELECT
+        if (req.query.teamname === undefined)
+        {
+            query1 = "SELECT * FROM teams;";
+        }
+    
+        // If there is a query string, we assume this is a search, and return desired results
+        else
+        {
+            query1 = `SELECT * FROM teams WHERE teamname LIKE "${req.query.teamname}%";`
+        }
+    
+        // Query 2 is the same in both cases
+        let query2 = "SELECT * FROM players;";
+    
+        // Run the 1st query
+        db.pool.query(query1, function(error, rows, fields){
+            
+            // Save the people
+            let players = rows;
+            
+            // Run the second query
+            db.pool.query(query2, (error, rows, fields) => {
+                
+                // Save the planets
+                let teams = rows;
 
-        db.pool.query(query1, function(error, rows, fields){    // Execute the query
+                return res.render('index', {data: players, teams: teams});
+            })
+        })
+    });
 
-            res.render('index', {data: rows});                  // Render the index.hbs file, and also send the renderer
-        })                                                      // an object where 'data' is equal to the 'rows' we
-    });                                                         // received back from the query
+    app.get('/players', function(req, res)
+    {
+        // Declare Query 1
+        let query1;
+    
+        // If there is no query string, we just perform a basic SELECT
+        if (req.query.playername === undefined)
+        {
+            query1 = `
+            SELECT
+                players.playername, 
+                players.age, 
+                CASE WHEN players.ispitcher = 1 THEN 'Yes' ELSE 'No' END AS ispitcher, 
+                CASE WHEN players.isretired = 1 THEN 'Yes' ELSE 'No' END AS isretired, 
+                CASE WHEN players.isfreeagent = 1 THEN 'Yes' ELSE 'No' END AS isfreeagent, 
+                players.teams_teamname AS teamname
+            FROM players
+            INNER JOIN teams ON teamname = teams.teamname
+            GROUP BY playername
+            ORDER BY players.playername ASC;
+            `;
+        }
+    
+        // If there is a query string, we assume this is a search, and return desired results
+        else
+        {
+            query1 = `SELECT * FROM players WHERE playername LIKE "${req.query.playername}%";`
+        }
+    
+        // Query 2 is the same in both cases
+        let query2 = "SELECT * FROM teams;";
+    
+        // Run the 1st query
+        db.pool.query(query1, function(error, rows, fields){
+            
+            // Save the people
+            let players = rows;
+            
+            // Run the second query
+            db.pool.query(query2, (error, rows, fields) => {
+                
+                // Save the teams
+                let teams = rows;
+    
+                return res.render('players', {data: players, teams: teams});
+            })
+        })
+    });
+                                                        
 
 
 
@@ -47,20 +124,20 @@ var db = require('./database/db-connector')
         let data = req.body;
     
         // Capture NULL values
-        let gameswon = parseInt(data.gameswon);
-        if (isNaN(gameswon))
-        {
-            gameswon = 'NULL'
-        }
+        // let gameswon = parseInt(data.gameswon);
+        // if (isNaN(gameswon))
+        // {
+        //     gameswon = 'NULL'
+        // }
     
-        let gameslost = parseInt(data.gameslost);
-        if (isNaN(gameslost))
-        {
-            gameslost = 'NULL'
-        }
+        // let gameslost = parseInt(data.gameslost);
+        // if (isNaN(gameslost))
+        // {
+        //     gameslost = 'NULL'
+        // }
     
         // Create the query and run it on the database
-        query1 = `INSERT INTO teams (teamname, location, gameswon, gameslost) VALUES ('${data.teamname}', '${data.location}', ${gameswon}, ${gameslost})`;
+        query1 = `INSERT INTO teams (teamname, location, gameswon, gameslost) VALUES ('${data.teamname}', '${data.location}', '${data.gameswon}', '${data.gameslost}')`;
         db.pool.query(query1, function(error, rows, fields){
     
             // Check to see if there was an error
@@ -112,7 +189,97 @@ var db = require('./database/db-connector')
         }
     
         // Create the query and run it on the database
-        query1 = `INSERT INTO teams (teamname, location, gameswon, gameslost) VALUES ('${data['input-teamname']}', '${data['input-location']}', '${gameswon}',' ${gameslost}')`;
+        query1 = `INSERT INTO teams (teamname, location, gameswon, gameslost) VALUES ('${data['input-teamname']}', '${data['input-location']}', '${data['input-gameswon']}', '${data['input-gameslost']}')`;
+        db.pool.query(query1, function(error, rows, fields){
+    
+            // Check to see if there was an error
+            if (error) {
+    
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error)
+                res.sendStatus(400);
+            }
+            // If there was no error, we redirect back to our root route, which automatically runs the SELECT * FROM bsg_people and
+            // presents it on the screen
+            else
+            {
+                res.redirect('/');
+            }
+        })
+    })
+
+    app.post('/add-player-ajax', function(req, res) 
+{
+    // Capture the incoming data and parse it back to a JS object
+    let data = req.body;
+
+    // Capture NULL values
+    // let homeworld = parseInt(data.homeworld);
+    // if (isNaN(homeworld))
+    // {
+    //     homeworld = 'NULL'
+    // }
+
+    // let age = parseInt(data.age);
+    // if (isNaN(age))
+    // {
+    //     age = 'NULL'
+    // }
+
+    // Create the query and run it on the database
+    query1 = `INSERT INTO players (playername, age, ispitcher, isretired, isfreeagent, teams_teamname) VALUES ('${data.playername}', '${data.age}', '${data.ispitcher}', '${data.isretired}', '${data.isfreeagent}', '${data.teams_teamname}' )`;
+    db.pool.query(query1, function(error, rows, fields){
+
+        // Check to see if there was an error
+        if (error) {
+
+            // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+            console.log(error)
+            res.sendStatus(400);
+        }
+        else
+        {
+            // If there was no error, perform a SELECT * on bsg_people
+            query2 = `SELECT * FROM players;`;
+            db.pool.query(query2, function(error, rows, fields){
+
+                // If there was an error on the second query, send a 400
+                if (error) {
+                    
+                    // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                    console.log(error);
+                    res.sendStatus(400);
+                }
+                // If all went well, send the results of the query back.
+                else
+                {
+                    res.send(rows);
+                }
+            })
+        }
+    })
+});
+
+
+    app.post('/add-player-form', function(req, res){
+        // Capture the incoming data and parse it back to a JS object
+        let data = req.body;
+    
+        // Capture NULL values
+        // let gameswon = parseInt(data['input-gameswon']);
+        // if (isNaN(gameswon))
+        // {
+        //     gameswon = 'NULL'
+        // }
+    
+        // let gameslost = parseInt(data['input-gameslost']);
+        // if (isNaN(gameslost))
+        // {
+        //     gameslost = 'NULL'
+        // }
+    
+        // Create the query and run it on the database
+        query1 = `INSERT INTO players (playername, age, ispitcher, isretired, isfreeagent, teams_teamname) VALUES ('${data['input-playername']}', '${data['input-age']}', '${data['input-ispitcher']}', '${data['input-isretired']}', '${data['input-isfreeagent']}', '${data['input-teams_teamname']}' )`;
         db.pool.query(query1, function(error, rows, fields){
     
             // Check to see if there was an error
@@ -127,11 +294,61 @@ var db = require('./database/db-connector')
             // presents it on the screen
             else
             {
-                res.redirect('/');
+                res.redirect('/players');
             }
         })
     })
 
+
+app.delete('/delete-player-ajax/', function(req,res,next){
+    let data = req.body;
+    let playerID = parseInt(data.id);
+    let deletePlayername = `DELETE FROM players WHERE playername = ?`;
+    let deleteTeamname = `DELETE FROM teams WHERE teamname = ?;`;
+    
+    
+            // Run the 1st query
+            db.pool.query(deletePlayername, [playerID], function(error, rows, fields){
+                if (error) {
+    
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+                }
+    
+                else
+                {
+                    // Run the second query
+                    db.pool.query(deleteTeamname, [playerID], function(error, rows, fields) {
+    
+                        if (error) {
+                            console.log(error);
+                            res.sendStatus(400);
+                        } else {
+                            res.sendStatus(204);
+                        }
+                    })
+                }
+    })});
+
+
+app.delete('/delete-team-ajax/', function(req,res,next){
+
+    let data = req.body;
+    let teamname = data.id;
+    let deleteTeamname = `DELETE FROM teams WHERE teamname = ?`;
+    db.pool.query(deleteTeamname, [teamname], function(error, rows, fields){
+        if (error) {
+
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+        else
+        {
+            res.sendStatus(204);
+        }
+    })});
 
 
 
