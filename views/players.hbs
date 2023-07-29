@@ -39,13 +39,12 @@
             <td>{{this.isretired}}</td>
             <td>{{this.isfreeagent}}</td>
             <td>{{this.teamname}}</td>
-            <td><button onclick="deletePlayer({{this.playername}})">Delete</button></td>
+            <td><button onclick="deletePlayer('{{this.playername}}')">Delete</button></td>
 
         </tr>
         {{/each}}
     </tbody>
 </table>
-
 <script src="./js/delete_player.js"></script>
 
 
