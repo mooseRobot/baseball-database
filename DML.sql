@@ -17,7 +17,8 @@ INSERT INTO teams (teamname, location, gameswon, gameslost) VALUES
 
 -- Update a team
 UPDATE teams
-SET teamname = :teamnameInput, location = :locationInput, gameswon = :gameswonInput, gameslost = :gameslostInput;
+SET gameswon = :gameswonInput, gameslost = :gameslostInput
+WHERE teams.teamname = ':teamnameInput'
 
 -- Delete a team
 DELETE FROM teams WHERE teamname = :teamnameInput;

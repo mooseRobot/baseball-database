@@ -53,15 +53,18 @@ app.get('/', function(req, res)
         db.pool.query(query1, function(error, rows, fields){
             
             // Save the people
-            let players = rows;
+            let teams = rows;
+
+            return res.render('index', {data: teams, teams: teams});
             
             // Run the second query
+            // - Felix note: We don't need query 2 because we're not selecting any players
             db.pool.query(query2, (error, rows, fields) => {
                 
                 // Save the planets
                 let teams = rows;
 
-                return res.render('index', {data: players, teams: teams});
+                
             })
         })
     });
@@ -336,6 +339,43 @@ app.delete('/delete-team-ajax/', function(req,res,next){
     })});
 
 
+app.put('/put-team-ajax', function(req,res,next){
+    let data = req.body;
+    let teamname = data.teamname;
+    let gameswon = parseInt(data.gameswon);
+    let gameslost = parseInt(data.gameslost);
+    
+    let queryUpdateTeam = `UPDATE teams
+                            SET gameswon = ?, 
+                                gameslost = ?
+                            WHERE teams.teamname = ?`;
+    let selectTeam = `SELECT * FROM teams WHERE teamname = ?`
+    
+            // Run the 1st query
+            db.pool.query(queryUpdateTeam, [gameswon, gameslost, teamname], function(error, rows, fields){
+                if (error) {
+    
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+                }
+    
+                // If there was no error, we run our second query and return that data so we can use it to update the people's
+                // table on the front-end
+                else
+                {
+                    // Run the second query
+                    db.pool.query(selectTeam, [teamname], function(error, rows, fields) {
+    
+                        if (error) {
+                            console.log(error);
+                            res.sendStatus(400);
+                        } else {
+                            res.send(rows);
+                        }
+                    })
+                }
+    })});
 
 
 

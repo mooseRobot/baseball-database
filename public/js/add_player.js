@@ -118,7 +118,13 @@ addRowToTable = (data) => {
     
     row.setAttribute('data-value', newRow.id);
 
-
     // Add the row to the table
     currentTable.appendChild(row);
+
+    // step 8 code
+    let selectMenu = document.getElementById("mySelect");
+    let option = document.createElement("option");
+    option.text = newRow.fname + ' ' +  newRow.lname;
+    option.value = newRow.id;
+    selectMenu.add(option);
 }
