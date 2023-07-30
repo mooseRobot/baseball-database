@@ -23,7 +23,18 @@ function deleteRow(teamname){
     for (let i = 0, row; row = table.rows[i]; i++) {
        if (table.rows[i].getAttribute("data-value") == teamname) {
             table.deleteRow(i);
+            deleteDropDownMenu(teamname);
             break;
        }
     }
   }
+
+function deleteDropDownMenu(teamname){
+    let selectMenu = document.getElementById("delete-team-drop-down-select");
+    for (let i = 0; i < selectMenu.length; i++){
+        if (selectMenu.options[i].value === teamname){
+        selectMenu[i].remove();
+        break;
+        } 
+    }
+}

@@ -377,6 +377,61 @@ app.put('/put-team-ajax', function(req,res,next){
                 }
     })});
 
+    
+app.put('/put-player-ajax', function(req,res,next){
+    let data = req.body;
+    let playername = data.playername;
+    let teamname = data.teamname;
+    let age = parseInt(data.age);
+    let ispitcher = parseInt(data.ispitcher);
+    let isretired = parseInt(data.isretired);
+    let isfreeagent = parseInt(data.isfreeagent)
+    
+    let queryUpdatePlayer = `UPDATE players
+                            SET teams_teamname = IF(teams_teamname = '', NULL, ?),
+                                age = ?,
+                                ispitcher = ?,
+                                isretired = ?,
+                                isfreeagent = ?
+                            WHERE playername = ?`;
+
+    let selectPlayers =     `SELECT
+                                players.playername, 
+                                players.age, 
+                                CASE WHEN players.ispitcher = 1 THEN 'Yes' ELSE 'No' END AS ispitcher, 
+                                CASE WHEN players.isretired = 1 THEN 'Yes' ELSE 'No' END AS isretired, 
+                                CASE WHEN players.isfreeagent = 1 THEN 'Yes' ELSE 'No' END AS isfree_agent, 
+                                players.teams_teamname AS teamname
+                            FROM players
+                            INNER JOIN teams ON teamname = teams.teamname
+                            GROUP BY playername
+                            ORDER BY players.playername ASC`;
+    
+            // Run the 1st query
+            db.pool.query(queryUpdatePlayer, [teamname, age, ispitcher, isretired, isfreeagent, playername], function(error, rows, fields){
+                if (error) {
+    
+                // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+                console.log(error);
+                res.sendStatus(400);
+                }
+    
+                // If there was no error, we run our second query and return that data so we can use it to update the people's
+                // table on the front-end
+                else
+                {
+                    // Run the second query
+                    db.pool.query(selectPlayers, [teamname], function(error, rows, fields) {
+    
+                        if (error) {
+                            console.log(error);
+                            res.sendStatus(400);
+                        } else {
+                            res.send(rows);
+                        }
+                    })
+                }
+    })});
 
 
 /*

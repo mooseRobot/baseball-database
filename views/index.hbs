@@ -125,3 +125,16 @@
 </form>
 
 <script src="./js/update_team.js"></script>
+
+<h2>Delete a Team Drop-down Menu</h2>
+<p>To delete a specific team, select their name from the drop-down menu and click submit</p>
+<form id="delete-team-drop-down-form">
+    <label for="delete-team-drop-down">Team name:</label>
+    <select name="delete-team-drop-down" id="delete-team-drop-down-select">
+        <option value="">Select a Team</option>
+        {{#each teams}}
+            <option value="{{this.teamname}}">{{this.teamname}}</option>
+        {{/each}}
+    </select>
+    <input type="submit">
+</form>

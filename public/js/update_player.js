@@ -1,44 +1,58 @@
 
 // Get the objects we need to modify
-let updateTeamForm = document.getElementById('update-team-form-ajax');
+let updatePlayerForm = document.getElementById('update-player-form-ajax');
 
 // Modify the objects we need
-updateTeamForm.addEventListener("submit", function (e) {
-   
+updatePlayerForm.addEventListener("submit", function (e) {
+    
     // Prevent the form from submitting
     e.preventDefault();
 
     // Get form fields we need to get data from
-    let inputTeamName = document.getElementById("mySelect");
-    let inputGamesWon = document.getElementById("input-gameswon-update");
-    let inputGamesLoss = document.getElementById("input-gameslost-update");
+    let inputPlayerName = document.getElementById("mySelect")
+    let inputTeamName = document.getElementById("input-teamname-update");
+    let inputAge = document.getElementById("input-age-update");
+    let inputIsPitcher = document.getElementById("input-ispitcher-update");
+    let inputIsRetired = document.getElementById("input-isretired-update");
+    let inputIsFreeAgent = document.getElementById("input-isfreeagent-update")
 
 
     // Get the values from the form fields
+    let playerNameValue = inputPlayerName.value;
     let teamNameValue = inputTeamName.value;
-    let gamesWonValue = inputGamesWon.value;
-    let gamesLostValue = inputGamesLoss.value;
-    
-    // currently the database table for baseball database does not allow updating values to NULL
-    // so we must abort if being bassed NULL for gameswon and gameslost
+    let ageValue = inputAge.value;
+    let isPitcherValue = inputIsPitcher.value;
+    let isRetiredValue = inputIsRetired.value;
+    let isFreeAgentValue = inputIsFreeAgent.value;
 
-    if (isNaN(gamesWonValue)) {
+    
+    // currently the database table for database does not allow updating values to NULL
+    // so we must abort if being bassed NULL for age, pitcher, retured, and freeagent
+
+    if (isNaN(ageValue)) {
         return;
-    } else if (isNaN(gamesLostValue)) {
+    } else if (isNaN(isPitcherValue)) {
+        return;
+    } else if (isNaN(isRetiredValue)) {
+        return;
+    } else if (isNaN(isFreeAgentValue)) {
         return;
     }
 
 
     // Put our data we want to send in a javascript object
     let data = {
+        playername: playerNameValue,
         teamname: teamNameValue,
-        gameswon: gamesWonValue,
-        gameslost: gamesLostValue
+        age: ageValue,
+        ispitcher: isPitcherValue,
+        isretired: isRetiredValue,
+        isfreeagent: isFreeAgentValue
     }
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-team-ajax", true);
+    xhttp.open("PUT", "/put-player-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
