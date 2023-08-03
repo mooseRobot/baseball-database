@@ -16,7 +16,6 @@ function deleteTeam(teamname) {
     });
 }
 
-
 function deleteRow(teamname){
     let table = document.getElementById("teams-table");
     for (let i = 0, row; row = table.rows[i]; i++) {

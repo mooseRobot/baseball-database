@@ -16,12 +16,12 @@ function deletePlayer(playername) {
     });
   }
   
-  function deleteRow(playername){
-      let table = document.getElementById("players-table");
-      for (let i = 0, row; row = table.rows[i]; i++) {
-         if (table.rows[i].getAttribute("data-value") == playername) {
-              table.deleteRow(i);
-              break;
-         }
-      }
-  }
+function deleteRow(playername){
+    let table = document.getElementById("players-table");
+    for (let i = 0, row; row = table.rows[i]; i++) {
+        if (table.rows[i].getAttribute("data-value") == playername) {
+            table.deleteRow(i);
+            break;
+        }
+    }
+}
