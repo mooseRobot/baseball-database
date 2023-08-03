@@ -17,7 +17,6 @@ function deleteTeam(teamname) {
 }
 
 
-
 function deleteRow(teamname){
     let table = document.getElementById("teams-table");
     for (let i = 0, row; row = table.rows[i]; i++) {
@@ -38,3 +37,13 @@ function deleteDropDownMenu(teamname){
         } 
     }
 }
+
+// Grab team delete form element
+let deletePlayerForm = document.getElementById('delete-team-drop-down-form');
+
+// Delete team via drop down select
+deletePlayerForm.addEventListener("submit", function (e) {
+    let teamToDelete = document.getElementById("delete-team-drop-down-select")
+    let teamToDeleteValue = teamToDelete.value
+    deleteTeam(teamToDeleteValue)
+})
