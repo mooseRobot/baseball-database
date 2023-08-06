@@ -56,8 +56,7 @@
 
             {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
             {{#each data}}
-            <tr>
-                <tr data-value={{this.teamname}}></tr>
+            <tr data-value={{this.teamname}}>
                 <td>{{this.teamname}}</td>
                 <td>{{this.location}}</td>
                 <td>{{this.gameswon}}</td>
@@ -73,7 +72,7 @@
     <!-- /views/index.hbs -->
     <h3>Add a baseball team</h3>
     <p>To add a new team, please enter their information below and click `Submit`!</p>
-    <form id="add-team-form" method="POST" action="/teams/add-team-form">
+    <form id="add-team-form" method="POST" action="/teams/add">
         <label for="input-teamname">Team Name: </label>
         <input type="text" name="input-teamname" id="input-teamname">
         

@@ -42,7 +42,7 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/add-team-form', function(req, res){
+router.post('/add', function(req, res){
     // Capture the incoming data and parse it back to a JS object
     let data = req.body;
 
@@ -79,7 +79,7 @@ router.post('/add-team-form', function(req, res){
     })
 });
 
-router.delete('/delete-team-ajax/', function(req,res,next){
+router.delete('/delete/', function(req,res,next){
     let data = req.body;
     let teamname = data.id;
     let deleteTeamname = `DELETE FROM teams WHERE teamname = ?`;
@@ -97,7 +97,7 @@ router.delete('/delete-team-ajax/', function(req,res,next){
     })});
 
 
-router.put('/put-team-ajax', function(req,res,next){
+router.put('/update', function(req,res,next){
     let data = req.body;
     let teamname = data.teamname;
     let gameswon = parseInt(data.gameswon);

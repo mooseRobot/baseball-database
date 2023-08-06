@@ -38,7 +38,7 @@ updateTeamForm.addEventListener("submit", function (e) {
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/teams/put-team-ajax", true);
+    xhttp.open("PUT", "/teams/update", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -74,6 +74,7 @@ function updateRow(data, teamname){
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
             // Get td of gameswon and games lost value
+            console.log(updateRowIndex)
             let gameswon = updateRowIndex.getElementsByTagName("td")[2];
             let gameslost = updateRowIndex.getElementsByTagName("td")[3];
             console.log(gameswon)

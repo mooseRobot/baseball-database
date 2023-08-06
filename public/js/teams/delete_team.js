@@ -1,6 +1,6 @@
 // deleteTeam function using jQuery
 function deleteTeam(teamname) {
-    let link = '/teams/delete-team-ajax/';
+    let link = '/teams/delete/';
     let data = {
         id: teamname
     };
