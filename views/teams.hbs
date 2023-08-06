@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseball Stats</title>
+    <link id="stylesheet" href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    
+    <header> 
+        <h1>Baseball Statistics Tracker</h1>
+        <img src="./images/baseball_340.png" width="50px" height="50px">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="teams">Teams</a></li>
+                <li><a href="players">Players</a></li>
+                <li><a href="pitchers.html">Pitchers</a></li>
+                <li><a href="positions.html">Position Players</a></li>
+                <li><a href="games.html">[Games]</a></li>
+                <li><a href="coaches.html">Coaches</a></li>
+                <li><a href="games_has_teams.html">Games-Teams</a></li>
+            </ul>
+        </nav>
+    </header>
+    <p>&nbsp;</p>
+
+    <h2>Baseball Teams</h2>
+    <p>Add a baseball team</p>
+
+    {{!-- Create a table --}}
+    <table id="teams-table">
+
+        {{!-- Header section --}}
+        <thead>
+
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                {{!-- <th>Delete</th> --}}
+            </tr>
+        </thead>
+
+        {{!-- Body section --}}
+        <tbody>
+
+            {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+            {{#each data}}
+            <tr>
+                <tr data-value={{this.teamname}}></tr>
+                <td>{{this.teamname}}</td>
+                <td>{{this.location}}</td>
+                <td>{{this.gameswon}}</td>
+                <td>{{this.gameslost}}</td>
+                {{!-- <td><button onclick="deleteTeam('{{this.teamname}}')">Delete</button></td> --}}
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+
+
+    <!-- /views/index.hbs -->
+    <h3>Add a baseball team</h3>
+    <p>To add a new team, please enter their information below and click `Submit`!</p>
+    <form id="add-team-form" method="POST" action="/teams/add-team-form">
+        <label for="input-teamname">Team Name: </label>
+        <input type="text" name="input-teamname" id="input-teamname">
+        
+        <label for="input-location">Location: </label>
+        <input type="text" name="input-location" id="input-location">
+
+        <label for="input-gameswon">Games Won: </label>
+        <input type="number" name="input-gameswon" id="input-gameswon">
+
+        <label for="input-gameslost">Games Lost: </label>
+        <input type="number" name="input-gameslost" id="input-gameslost">
+
+        <input type="submit">
+    </form>
+
+
+
+    <h3>Search Teams</h3>
+    <p>Search by teamname using the field below. Partial last names are OK too!</p>
+    <form id="search-team-html" method='GET' action='/teams'>
+        <label for="input-teamname">Search by Team Name: </label>
+        <input type="text" name="teamname" id="input-teamname-html-search">
+        
+        <input type="submit">
+        <a href='/teams'><button>Reset</button></a>
+    </form>
+
+
+    <h3>Updating A Team Form</h3>
+    <p>To update a specific team select their name from the drop-down menu on the left and their enter their wins and losses on the right</p>
+    <form id="update-team-form-ajax">
+
+        <label for="input-teamname">Team name: </label>
+        <select name="input-teamname" id="mySelect">
+            <option value="">Select a Team</option>
+            {{#each teams}}
+                <option value="{{this.teamname}}">{{this.teamname}}</option>
+            {{/each}}
+        </select>
+
+        <label for="input-gameswon">Games Won: </label>
+        <input type="number" name="input-gameswon" id="input-gameswon-update">
+
+        <label for="input-gameslost">Games Lost: </label>
+        <input type="number" name="input-gameslost" id="input-gameslost-update">
+        <input type="submit">
+
+    </form>
+
+    <script src="./js/teams/update_team.js"></script>
+
+    <h3>Delete a Team Drop-down Menu</h3>
+    <p>To delete a specific team, select their name from the drop-down menu and click submit</p>
+    <form id="delete-team-drop-down-form">
+        <label for="delete-team-drop-down">Team name:</label>
+        <select name="delete-team-drop-down" id="delete-team-drop-down-select">
+            <option value="">Select a Team</option>
+            {{#each teams}}
+                <option value="{{this.teamname}}">{{this.teamname}}</option>
+            {{/each}}
+        </select>
+        <input type="submit">
+    </form>
+
+    <script src="./js/teams/delete_team.js"></script>
+</body>
+</html>

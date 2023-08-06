@@ -3,7 +3,7 @@ body {
 };
 
 
-#teams-table {
+table {
     border: 5px solid black;
     width: 100%;
     background-color: black;
@@ -19,15 +19,10 @@ header {
     clear: both;
   }
 
-header::after {
-    content: '';
-    display: table;
-    clear: both;
-  }
 
 nav {
     float: left;
-    margin-right: 7%;
+    margin-right: 20px;
 }
 
   nav ul {
@@ -38,7 +33,7 @@ nav {
   
   nav li {
     display: inline-block;
-    margin-left: 70px;
+    margin-right: 20px;
     padding-top: 23px;
     position: relative;
   }

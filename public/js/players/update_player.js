@@ -52,7 +52,7 @@ updatePlayerForm.addEventListener("submit", function (e) {
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-player-ajax", true);
+    xhttp.open("PUT", "/players/put-player-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -60,7 +60,7 @@ updatePlayerForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, fullNameValue);
+            updateRow(xhttp.response, playerNameValue);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {

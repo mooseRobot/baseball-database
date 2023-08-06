@@ -1,164 +1,153 @@
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baseball Stats</title>
+    <link id="stylesheet" href="style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
 
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-<!-- index.hbs -->
-<h1>The server is running!</h1>
-<p>If you see this text, the server is <strong>definitely</strong> working!</p>
+    
+    <header>
+        <h1>Baseball Statistics Tracker</h1>
+            <img src="./images/baseball_340.png" width="50px" height="50px">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="teams">Teams</a></li>
+                <li><a href="players">Players</a></li>
+                <li><a href="pitchers.html">Pitchers</a></li>
+                <li><a href="positions.html">Position Players</a></li>
+                <li><a href="games.html">[Games]</a></li>
+                <li><a href="coaches.html">Coaches</a></li>
+                <li><a href="games_has_teams.html">Games-Teams</a></li>
+            </ul>
+        </nav>
+    </header>
+    <p>&nbsp;</p>
 
+    <h2>Baseball Players</h2>
+    <p>Add a baseball player</p>
+    {{!-- Create a table --}}
+    <table id="players-table">
 
-<a href="/">Teams</a>
-<a href="/players">Players</a>
+        {{!-- Header section --}}
+        <thead>
 
-{{!-- Create a table --}}
-<table id="players-table">
+            {{!-- For just the first row, we print each key of the row object as a header cell so we
+            know what each column means when the page renders --}}
+            <tr>
+                {{#each data.[0]}}
+                <th>
+                    {{@key}}
+                </th>
+                {{/each}}
+                <th>Delete</th>
+            </tr>
+        </thead>
 
-    {{!-- Header section --}}
-    <thead>
+        {{!-- Body section --}}
+        <tbody>
 
-        {{!-- For just the first row, we print each key of the row object as a header cell so we
-        know what each column means when the page renders --}}
-        <tr>
-            {{#each data.[0]}}
-            <th>
-                {{@key}}
-            </th>
+            {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
+            {{#each data}}
+            <tr data-value={{this.playername}}>
+                <td>{{this.playername}}</td>
+                <td>{{this.age}}</td>
+                <td>{{this.ispitcher}}</td>
+                <td>{{this.isretired}}</td>
+                <td>{{this.isfreeagent}}</td>
+                <td>{{this.teamname}}</td>
+                <td><button onclick="deletePlayername('{{this.playername}}')">Delete</button></td>
+
+            </tr>
             {{/each}}
-            <th>Delete</th>
-        </tr>
-    </thead>
-
-    {{!-- Body section --}}
-    <tbody>
-
-        {{!-- For each row, print the id, fname, lname, homeworld and age, in order --}}
-        {{#each data}}
-        <tr data-value={{this.playername}}>
-            <td>{{this.playername}}</td>
-            <td>{{this.age}}</td>
-            <td>{{this.ispitcher}}</td>
-            <td>{{this.isretired}}</td>
-            <td>{{this.isfreeagent}}</td>
-            <td>{{this.teamname}}</td>
-            <td><button onclick="deletePlayer('{{this.playername}}')">Delete</button></td>
-
-        </tr>
-        {{/each}}
-    </tbody>
-</table>
-<script src="./js/delete_player.js"></script>
+        </tbody>
+    </table>
 
 
-{{!-- Does not work --}}
-{{!-- Form to add a record to the table  --}}
-<h2>Adding Data with AJAX</h2>
-<p>To add a new player, please enter their information below and click 'Submit'!</p>
-<form id="add-player-form-ajax">
-    <label for="input-playername">Player Name: </label>
-    <input type="text" name="input-playername" id="input-playername">
-    
-    <label for="input-age">Age: </label>
-    <input type="number" name="input-age" id="input-age">
+    <!-- /views/index.hbs -->
+    <h3>Add a baseball player here</h3>
+    <p>To add a new player, please enter their information below nad click `Submit`!</p>
+    <form id="add-player-form" method="POST" action="/players/add-player-form">
+        <label for="input-playername">Player Name: </label>
+        <input type="text" name="input-playername" id="input-playername" required>
+        
+        <label for="input-age">Age: </label>
+        <input type="number" name="input-age" id="input-age">
 
-    <label for="input-ispitcher">Is Pitcher?: </label>
-    <input type="number" name="input-ispitcher" id="input-ispitcher">
+        <label for="input-ispitcher">Is Pitcher?: </label>
+        <input type="number" name="input-ispitcher" id="input-ispitcher">
 
-    <label for="input-isretired">Is Retired?: </label>
-    <input type="number" name="input-isretired" id="input-isretired">
+        <label for="input-isretired">Is Retired?: </label>
+        <input type="number" name="input-isretired" id="input-isretired">
 
-    <label for="input-isfreeagent">Is Free Agent? </label>
-    <input type="number" name="input-isfreeagent" id="input-isfreeagent" > 
+        <label for="input-isfreeagent">Is Free Agent? </label>
+        <input type="number" name="input-isfreeagent" id="input-isfreeagent" > 
 
-        <select name="input-teams_teamname" id="input-teams_teamname-ajax">
-        <option value="">Select a Team</option>
-        {{#each teams}}
-        <option value="{{this.teamname}}">{{this.teamname}}</option>
-        {{/each}}
-    </select>
-
-    <input type="submit">
-</form>
-
-{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
-<script src="./js/add_player.js"></script>
-
-
-
-
-<!-- /views/index.hbs -->
-<h2>Adding Data using an HTML form</h2>
-<p>To add a new team, please enter their information below nad click `Submit`!</p>
-<form id="add-player-form" method="POST" action="/add-player-form">
-    <label for="input-playername">Player Name: </label>
-    <input type="text" name="input-playername" id="input-playername">
-    
-    <label for="input-age">Age: </label>
-    <input type="number" name="input-age" id="input-age">
-
-    <label for="input-ispitcher">Is Pitcher?: </label>
-    <input type="number" name="input-ispitcher" id="input-ispitcher">
-
-    <label for="input-isretired">Is Retired?: </label>
-    <input type="number" name="input-isretired" id="input-isretired">
-
-    <label for="input-isfreeagent">Is Free Agent? </label>
-    <input type="number" name="input-isfreeagent" id="input-isfreeagent" > 
-
-     <select name="input-teams_teamname" id="input-teams_teamname-ajax">
-        <option value="">Select a Team</option>
-        {{#each teams}}
-        <option value="{{this.teamname}}">{{this.teamname}}</option>
-        {{/each}}
-    </select>
-
-    <input type="submit">
-
-</form>
-
-
-  <h2>Search Using an HTML Form</h2>
-<p>Search by last name using the field below. Partial last names are OK too!</p>
-<form id="search-player-html" method='GET' action='/players'>
-    <label for="input-playername">Search by Player Name: </label>
-    <input type="text" name="playername" id="input-playername-html-search">
-    
-    <input type="submit">
-    <a href='/players'><button>Reset</button></a>
-</form>
-
-
-<h2>Updating A Player Form</h2>
-<p>To update a specific player select their name from the drop-down menu on the left and their enter their information on the right</p>
-<form id="update-player-form-ajax">
-
-    <label for="input-playername">Player name: </label>
-    <select name="input-playername" id="mySelect">
-        <option value="">Select a Player</option>
-        {{#each data}}
-            <option value="{{this.playername}}">{{this.playername}}</option>
-        {{/each}}
-    </select>
-
-    <label for="input-teamname">Team name: </label>
-    <select name="input-teamname" id="input-teamname-update">
-        <option value="">Select a Team</option>
-        {{#each teams}}
+        <select name="input-teams_teamname" id="input-teams_teamname-ajax" required>
+            <option value="">Select a Team</option>
+            {{#each teams}}
             <option value="{{this.teamname}}">{{this.teamname}}</option>
-        {{/each}}
-    </select>
+            {{/each}}
+        </select>
 
-    <label for="input-age">Age: </label>
-    <input type="number" name="input-age" id="input-age-update">
+        <input type="submit">
 
-    <label for="input-ispitcher">isPitcher: </label>
-    <input type="number" name="input-ispitcher" id="input-ispitcher-update">
+    </form>
 
-    <label for="input-isretired">isRetired: </label>
-    <input type="number" name="input-isretired" id="input-isretired-update">
 
-    <label for="input-isfreeagent">isFreeagent: </label>
-    <input type="number" name="input-isfreeagent" id="input-isfreeagent-update">
-    <input type="submit">
+    <h3>Search Players</h3>
+    <p>Search by name using the field below</p>
+    <form id="search-player-html" method='GET' action='/players'>
+        <label for="input-playername">Search by Player Name: </label>
+        <input type="text" name="playername" id="input-playername-html-search">
+        
+        <input type="submit">
+        <a href='/players'><button>Reset</button></a>
+    </form>
 
-</form>
 
-<script src="./js/update_player.js"></script>
+    <h3>Updating A Player Form</h3>
+    <p>To update a specific player select their name from the drop-down menu on the left and their enter their information on the right</p>
+    <form id="update-player-form-ajax">
+
+        <label for="input-playername">Player name: </label>
+        <select name="input-playername" id="mySelect">
+            <option value="">Select a Player</option>
+            {{#each data}}
+                <option value="{{this.playername}}">{{this.playername}}</option>
+            {{/each}}
+        </select>
+
+        <label for="input-teamname">Team name: </label>
+        <select name="input-teamname" id="input-teamname-update">
+            <option value="">Select a Team</option>
+            {{#each teams}}
+                <option value="{{this.teamname}}">{{this.teamname}}</option>
+            {{/each}}
+        </select>
+
+        <label for="input-age">Age: </label>
+        <input type="number" name="input-age" id="input-age-update">
+
+        <label for="input-ispitcher">isPitcher: </label>
+        <input type="number" name="input-ispitcher" id="input-ispitcher-update">
+
+        <label for="input-isretired">isRetired: </label>
+        <input type="number" name="input-isretired" id="input-isretired-update">
+
+        <label for="input-isfreeagent">isFreeagent: </label>
+        <input type="number" name="input-isfreeagent" id="input-isfreeagent-update">
+        <input type="submit">
+
+    </form>
+
+    <script src="./js/players/update_player.js"></script>
+    <script src="./js/players/delete_player.js"></script>
+</body>
+</html>

@@ -116,7 +116,7 @@ addRowToTable = (data) => {
     row.appendChild(deleteCell);
 
     
-    row.setAttribute('data-value', newRow.id);
+    row.setAttribute('data-value', newRow.playername);
 
     // Add the row to the table
     currentTable.appendChild(row);

@@ -38,7 +38,7 @@ updateTeamForm.addEventListener("submit", function (e) {
     
     // Setup our AJAX request
     var xhttp = new XMLHttpRequest();
-    xhttp.open("PUT", "/put-team-ajax", true);
+    xhttp.open("PUT", "/teams/put-team-ajax", true);
     xhttp.setRequestHeader("Content-type", "application/json");
 
     // Tell our AJAX request how to resolve
@@ -46,7 +46,7 @@ updateTeamForm.addEventListener("submit", function (e) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
 
             // Add the new data to the table
-            updateRow(xhttp.response, fullNameValue);
+            updateRow(xhttp.response, teamNameValue);
 
         }
         else if (xhttp.readyState == 4 && xhttp.status != 200) {
@@ -62,7 +62,7 @@ updateTeamForm.addEventListener("submit", function (e) {
 
 function updateRow(data, teamname){
     let parsedData = JSON.parse(data);
-    
+
     let table = document.getElementById("teams-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
@@ -70,14 +70,16 @@ function updateRow(data, teamname){
        //rows would be accessed using the "row" variable assigned in the for loop
        if (table.rows[i].getAttribute("data-value") == teamname) {
 
-            // Get the location of the row where we found the matching person ID
+            // Get the location of the row where we found the matching team ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
-            // Get td of homeworld value
-            let td = updateRowIndex.getElementsByTagName("td")[3];
-
-            // Reassign homeworld to our value we updated to
-            td.innerHTML = parsedData[0].name; 
+            // Get td of gameswon and games lost value
+            let gameswon = updateRowIndex.getElementsByTagName("td")[2];
+            let gameslost = updateRowIndex.getElementsByTagName("td")[3];
+            console.log(gameswon)
+            // Reassign games won and lost values
+            gameswon.innerHTML = parsedData[0].gameswon;
+            gameslost.innerHTML = parsedData[0].gameslost;
        }
     }
 }

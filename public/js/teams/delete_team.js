@@ -1,6 +1,6 @@
 // deleteTeam function using jQuery
 function deleteTeam(teamname) {
-    let link = '/delete-team-ajax/';
+    let link = '/teams/delete-team-ajax/';
     let data = {
         id: teamname
     };
@@ -15,6 +15,7 @@ function deleteTeam(teamname) {
         }
     });
 }
+
 
 function deleteRow(teamname){
     let table = document.getElementById("teams-table");
@@ -37,10 +38,9 @@ function deleteDropDownMenu(teamname){
     }
 }
 
-// Grab team delete form element
 let deletePlayerForm = document.getElementById('delete-team-drop-down-form');
 
-// Delete team via drop down select
+// Modify the objects we need
 deletePlayerForm.addEventListener("submit", function (e) {
     let teamToDelete = document.getElementById("delete-team-drop-down-select")
     let teamToDeleteValue = teamToDelete.value
