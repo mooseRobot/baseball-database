@@ -68,4 +68,8 @@ nav {
   nav a:hover::before {
     width: 100%;
   }
-  
+
+.required:after {
+  content:" *";
+  color: red;
+}

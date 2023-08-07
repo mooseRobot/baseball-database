@@ -74,10 +74,8 @@ function updateRow(data, teamname){
             let updateRowIndex = table.getElementsByTagName("tr")[i];
 
             // Get td of gameswon and games lost value
-            console.log(updateRowIndex)
             let gameswon = updateRowIndex.getElementsByTagName("td")[2];
             let gameslost = updateRowIndex.getElementsByTagName("td")[3];
-            console.log(gameswon)
             // Reassign games won and lost values
             gameswon.innerHTML = parsedData[0].gameswon;
             gameslost.innerHTML = parsedData[0].gameslost;

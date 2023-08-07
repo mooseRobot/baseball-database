@@ -74,24 +74,32 @@ updatePlayerForm.addEventListener("submit", function (e) {
 })
 
 
-function updateRow(data, teamname){
+function updateRow(data, playername){
     let parsedData = JSON.parse(data);
-    
-    let table = document.getElementById("teams-table");
+    console.log(parsedData)
+    let table = document.getElementById("players-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
        //iterate through rows
        //rows would be accessed using the "row" variable assigned in the for loop
-       if (table.rows[i].getAttribute("data-value") == teamname) {
+       if (table.rows[i].getAttribute("data-value") == playername) {
 
             // Get the location of the row where we found the matching person ID
             let updateRowIndex = table.getElementsByTagName("tr")[i];
-
-            // Get td of homeworld value
-            let td = updateRowIndex.getElementsByTagName("td")[3];
+            console.log(updateRowIndex)
+            // Get values of players
+            let age = updateRowIndex.getElementsByTagName("td")[1];
+            let ispitcher = updateRowIndex.getElementsByTagName("td")[2];
+            let isretired = updateRowIndex.getElementsByTagName("td")[3];
+            let isfreeagent = updateRowIndex.getElementsByTagName("td")[4];
+            let teamname = updateRowIndex.getElementsByTagName("td")[5];
 
             // Reassign homeworld to our value we updated to
-            td.innerHTML = parsedData[0].name; 
+            age.innerHTML = parsedData[0].playername;
+            ispitcher.innerHTML = parsedData[0].ispitcher;
+            isretired.innerHTML = parsedData[0].isretired;
+            isfreeagent.innerHTML = parsedData[0].isfreeagent;
+            teamname.innerHTML = parsedData[0].teamname;
        }
     }
 }

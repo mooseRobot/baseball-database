@@ -79,7 +79,7 @@ router.post('/add', function(req, res){
     })
 });
 
-router.delete('/delete/', function(req,res,next){
+router.delete('/delete', function(req,res,next){
     let data = req.body;
     let teamname = data.id;
     let deleteTeamname = `DELETE FROM teams WHERE teamname = ?`;
@@ -107,7 +107,7 @@ router.put('/update', function(req,res,next){
                             SET gameswon = ?, 
                                 gameslost = ?
                             WHERE teams.teamname = ?`;
-    let selectTeam = `SELECT * FROM teams WHERE teamname = ?`
+    let selectTeam      = `SELECT * FROM teams WHERE teamname = ?`
     
             // Run the 1st query
             db.pool.query(queryUpdateTeam, [gameswon, gameslost, teamname], function(error, rows, fields){

@@ -172,17 +172,8 @@ router.put('/put-player-ajax', function(req,res,next) {
                                 isfreeagent = ?
                             WHERE playername = ?`;
 
-    let selectPlayers =     `SELECT
-                                players.playername, 
-                                players.age, 
-                                CASE WHEN players.ispitcher = 1 THEN 'Yes' ELSE 'No' END AS ispitcher, 
-                                CASE WHEN players.isretired = 1 THEN 'Yes' ELSE 'No' END AS isretired, 
-                                CASE WHEN players.isfreeagent = 1 THEN 'Yes' ELSE 'No' END AS isfree_agent, 
-                                players.teams_teamname AS teamname
-                            FROM players
-                            INNER JOIN teams ON teamname = teams.teamname
-                            GROUP BY playername
-                            ORDER BY players.playername ASC`;
+    let selectPlayers =     `SELECT * FROM players 
+                            WHERE players.playername = ?`;
 
     // Run the 1st query
     db.pool.query(queryUpdatePlayer, [teamname, age, ispitcher, isretired, isfreeagent, playername], function(error, rows, fields){
@@ -198,7 +189,7 @@ router.put('/put-player-ajax', function(req,res,next) {
         else
         {
             // Run the second query
-            db.pool.query(selectPlayers, [teamname], function(error, rows, fields) {
+            db.pool.query(selectPlayers, [playername], function(error, rows, fields) {
 
                 if (error) {
                     console.log(error);
