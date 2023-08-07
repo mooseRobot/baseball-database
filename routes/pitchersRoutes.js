@@ -131,6 +131,19 @@ router.put('/update', function(req,res,next) {
 })});
 
 
+router.delete('/delete', function(req, res, next) {
+    let data = req.body;
+    let idpitcher = data.id;
+    let queryDeletePitcher = `DELETE FROM pitchers WHERE idpitcher = ?`
+    db.pool.query(queryDeletePitcher, [idpitcher], function(error, rows, fields){
+        if (error) {
+        console.log(error);
+        res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        }
+})});
+
 
 
 module.exports = router;

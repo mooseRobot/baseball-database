@@ -4,7 +4,6 @@ function deleteTeam(teamname) {
     let data = {
         id: teamname
     };
-    console.log(data.id)
     $.ajax({
         url: link,
         type: 'DELETE',
