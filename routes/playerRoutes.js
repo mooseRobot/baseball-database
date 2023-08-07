@@ -181,7 +181,14 @@ router.put('/put-player-ajax', function(req,res,next) {
                                 isfreeagent = ?
                             WHERE playername = ?`;
 
-    let selectPlayers =     `SELECT * FROM players 
+    let selectPlayers =     `SELECT
+                                players.playername, 
+                                players.age, 
+                                CASE WHEN players.ispitcher = 1 THEN 'Yes' ELSE 'No' END AS ispitcher, 
+                                CASE WHEN players.isretired = 1 THEN 'Yes' ELSE 'No' END AS isretired, 
+                                CASE WHEN players.isfreeagent = 1 THEN 'Yes' ELSE 'No' END AS isfreeagent, 
+                                players.teams_teamname AS teamname
+                            FROM players 
                             WHERE players.playername = ?`;
 
     // Run the 1st query
