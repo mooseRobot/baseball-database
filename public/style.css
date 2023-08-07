@@ -3,19 +3,12 @@ body {
 };
 
 
-table {
-    border: 5px solid black;
-    width: 100%;
-    background-color: black;
-};
-
 header {
     background-color: #1d2026;
   }
   
   header::after {
     content: '';
-    display: table;
     clear: both;
   }
 
@@ -72,4 +65,21 @@ nav {
 .required:after {
   content:" *";
   color: red;
+}
+
+td, th {
+    border: 1px solid #777;
+    padding: 0.5rem;
+    text-align: center;
+}
+ 
+table {
+    border-collapse: collapse;
+}
+ 
+tbody tr:nth-child(odd) {
+    background: #9abbd9;
+}
+caption {
+    font-size: 0.8rem;
 }
