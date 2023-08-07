@@ -25,12 +25,14 @@ const homeRoutes = require('./routes/homeRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const playerRoutes = require('./routes/playerRoutes');
 const pitchersRoutes = require('./routes/pitchersRoutes');
+const positionPlayersRoutes = require('./routes/positionPlayersRoutes')
 
 // Use the route handlers
 app.use('/', homeRoutes);
 app.use('/teams', teamRoutes);
 app.use('/players', playerRoutes);
 app.use('/pitchers', pitchersRoutes)
+app.use('/positionplayers', positionPlayersRoutes)
 
 /*
     LISTENER
