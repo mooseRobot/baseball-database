@@ -62,9 +62,9 @@ nav {
     width: 100%;
   }
 
-.required:after {
-  content:" *";
-  color: red;
+.form-required::before {
+    content: " *";
+    color: red;
 }
 
 td, th {
@@ -77,9 +77,13 @@ table {
     border-collapse: collapse;
 }
  
-tbody tr:nth-child(odd) {
+tbody tr:nth-child(even) {
     background: #9abbd9;
 }
+thead {
+    background: #9abbd9;
+}
+
 caption {
     font-size: 0.8rem;
 }

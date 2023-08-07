@@ -44,21 +44,22 @@
 <p>To add a new player, please enter their information below and click `Submit`!</p>
 <p>If the player is a pitcher, retired, or a free agent, enter one for that value. Otherwise enter a zero.</p>
 <form id="add-player-form" method="POST" action="/players/add-player-form">
-    <label for="input-playername">Player Name: </label>
+    <label for="input-playername" class="form-required">Player Name: </label>
     <input type="text" name="input-playername" id="input-playername" required>
     
-    <label for="input-age">Age: </label>
+    <label for="input-age" class="form-required">Age: </label>
     <input type="number" name="input-age" id="input-age">
 
-    <label for="input-ispitcher">Is Pitcher?: </label>
-    <input type="number" name="input-ispitcher" id="input-ispitcher">
+    <label for="input-ispitcher" class="form-required">Is Pitcher?: </label>
+    <input type="number" name="input-ispitcher" id="input-ispitcher" required>
 
-    <label for="input-isretired">Is Retired?: </label>
-    <input type="number" name="input-isretired" id="input-isretired">
+    <label for="input-isretired" class="form-required">Is Retired?: </label>
+    <input type="number" name="input-isretired" id="input-isretired" required>
 
-    <label for="input-isfreeagent">Is Free Agent? </label>
-    <input type="number" name="input-isfreeagent" id="input-isfreeagent" > 
+    <label for="input-isfreeagent" class="form-required">Is Free Agent? </label>
+    <input type="number" name="input-isfreeagent" id="input-isfreeagent" required> 
 
+    <label for="input-teams_teamname" class="form-required"></label>
     <select name="input-teams_teamname" id="input-teams_teamname-ajax" required>
         <option value="">Select a Team</option>
         {{#each teams}}
@@ -86,7 +87,7 @@
 <p>To update a specific player select their name from the drop-down menu on the left and their enter their information on the right</p>
 <form id="update-player-form-ajax">
 
-    <label for="input-playername">Player name: </label>
+    <label for="input-playername" class="form-required">Player name: </label>
     <select name="input-playername" id="mySelect" required>
         <option value="">Select a Player</option>
         {{#each data}}
@@ -102,17 +103,17 @@
         {{/each}}
     </select>
 
-    <label for="input-age">Age: </label>
-    <input type="number" name="input-age" id="input-age-update">
+    <label for="input-age" class="form-required">Age: </label>
+    <input type="number" name="input-age" id="input-age-update" required>
 
-    <label for="input-ispitcher">isPitcher: </label>
-    <input type="number" name="input-ispitcher" id="input-ispitcher-update">
+    <label for="input-ispitcher" class="form-required">isPitcher: </label>
+    <input type="number" name="input-ispitcher" id="input-ispitcher-update" required>
 
-    <label for="input-isretired">isRetired: </label>
-    <input type="number" name="input-isretired" id="input-isretired-update">
+    <label for="input-isretired" class="form-required">isRetired: </label>
+    <input type="number" name="input-isretired" id="input-isretired-update" required >
 
-    <label for="input-isfreeagent">isFreeagent: </label>
-    <input type="number" name="input-isfreeagent" id="input-isfreeagent-update">
+    <label for="input-isfreeagent" class="form-required">isFreeagent: </label>
+    <input type="number" name="input-isfreeagent" id="input-isfreeagent-update" required>
     <input type="submit">
 
 </form>

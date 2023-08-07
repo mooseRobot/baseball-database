@@ -43,17 +43,17 @@
 <h3>Add a baseball team</h3>
 <p>To add a new team, please enter their information below and click `Submit`!</p>
 <form id="add-team-form" method="POST" action="/teams/add">
-    <label for="input-teamname">Team Name: </label>
-    <input type="text" name="input-teamname" id="input-teamname">
+    <label for="input-teamname" class="form-required">Team Name: </label>
+    <input type="text" name="input-teamname" id="input-teamname" required>
     
-    <label for="input-location">Location: </label>
-    <input type="text" name="input-location" id="input-location">
+    <label for="input-location" class="form-required">Location: </label>
+    <input type="text" name="input-location" id="input-location" required>
 
-    <label for="input-gameswon">Games Won: </label>
-    <input type="number" name="input-gameswon" id="input-gameswon">
+    <label for="input-gameswon" class="form-required">Games Won: </label>
+    <input type="number" name="input-gameswon" id="input-gameswon" required>
 
-    <label for="input-gameslost">Games Lost: </label>
-    <input type="number" name="input-gameslost" id="input-gameslost">
+    <label for="input-gameslost" class="form-required">Games Lost: </label>
+    <input type="number" name="input-gameslost" id="input-gameslost" required>
 
     <input type="submit">
 </form>
@@ -75,19 +75,19 @@
 <p>To update a specific team select their name from the drop-down menu on the left and their enter their wins and losses on the right</p>
 <form id="update-team-form-ajax">
 
-    <label for="input-teamname">Team name: </label>
-    <select name="input-teamname" id="mySelect">
+    <label for="input-teamname" class="form-required">Team name: </label>
+    <select name="input-teamname" id="mySelect" required>
         <option value="">Select a Team</option>
         {{#each teams}}
             <option value="{{this.teamname}}">{{this.teamname}}</option>
         {{/each}}
     </select>
 
-    <label for="input-gameswon">Games Won: </label>
-    <input type="number" name="input-gameswon" id="input-gameswon-update">
+    <label for="input-gameswon" class="form-required">Games Won: </label>
+    <input type="number" name="input-gameswon" id="input-gameswon-update" required>
 
-    <label for="input-gameslost">Games Lost: </label>
-    <input type="number" name="input-gameslost" id="input-gameslost-update">
+    <label for="input-gameslost" class="form-required">Games Lost: </label>
+    <input type="number" name="input-gameslost" id="input-gameslost-update" required>
     <input type="submit">
 
 </form>
