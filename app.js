@@ -24,11 +24,13 @@ app.set('view engine', '.hbs');                 // Tell express to use the handl
 const homeRoutes = require('./routes/homeRoutes');
 const teamRoutes = require('./routes/teamRoutes');
 const playerRoutes = require('./routes/playerRoutes');
+const pitchersRoutes = require('./routes/pitchersRoutes');
 
 // Use the route handlers
 app.use('/', homeRoutes);
 app.use('/teams', teamRoutes);
 app.use('/players', playerRoutes);
+app.use('/pitchers', pitchersRoutes)
 
 /*
     LISTENER

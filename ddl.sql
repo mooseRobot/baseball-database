@@ -67,8 +67,6 @@ VALUES (1, (SELECT teamname FROM teams WHERE teamname="Dodgers" ) ),
 
 
 
-
-
 -- Create coaches table
 CREATE TABLE coaches (
     idcoach INT AUTO_INCREMENT,

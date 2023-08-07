@@ -1,4 +1,3 @@
-
 // Get the objects we need to modify
 let updatePlayerForm = document.getElementById('update-player-form-ajax');
 
@@ -94,7 +93,7 @@ function updateRow(data, playername){
             let isfreeagent = updateRowIndex.getElementsByTagName("td")[4];
             let teamname = updateRowIndex.getElementsByTagName("td")[5];
 
-            // Reassign homeworld to our value we updated to
+            // Reassign values
             age.innerHTML = parsedData[0].playername;
             ispitcher.innerHTML = parsedData[0].ispitcher;
             isretired.innerHTML = parsedData[0].isretired;

@@ -9,7 +9,7 @@
             <li><a href="/">Home</a></li>
             <li><a href="teams">Teams</a></li>
             <li><a href="players">Players</a></li>
-            <li><a href="pitchers.html">Pitchers</a></li>
+            <li><a href="pitchers">Pitchers</a></li>
             <li><a href="positions.html">Position Players</a></li>
             <li><a href="games.html">[Games]</a></li>
             <li><a href="coaches.html">Coaches</a></li>
@@ -60,7 +60,8 @@
 
 <!-- /views/index.hbs -->
 <h3>Add a baseball player here</h3>
-<p>To add a new player, please enter their information below nad click `Submit`!</p>
+<p>To add a new player, please enter their information below and click `Submit`!</p>
+<p>If the player is a pitcher, retired, or a free agent, enter one for that value. Otherwise enter a zero.</p>
 <form id="add-player-form" method="POST" action="/players/add-player-form">
     <label for="input-playername">Player Name: </label>
     <input type="text" name="input-playername" id="input-playername" required>

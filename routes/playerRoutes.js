@@ -138,7 +138,7 @@ router.post('/add-player-form', function(req, res) {
             res.redirect('/players');
         }
     })
-})
+});
 
 
 router.delete('/delete-player-ajax/', function(req,res,next) {
