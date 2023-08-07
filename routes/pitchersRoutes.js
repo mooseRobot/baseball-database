@@ -91,6 +91,46 @@ router.post('/add', function(req, res) {
 })
 
 
+router.put('/update', function(req,res,next) {
+    let data = req.body;
+    let idpitcher = data.idpitcher;
+    let innings = parseFloat(data.innings);
+    let era = parseFloat(data.era);
+
+    let queryUpdatePitcher = `UPDATE pitchers
+                            SET inningspitched = ?, earnedrunsaverage = ?
+                            WHERE idpitcher = ?`;
+
+    let selectPitchers =     `SELECT * FROM pitchers 
+                            WHERE pitchers.idpitcher = ?`;
+
+    // Run the 1st query
+    db.pool.query(queryUpdatePitcher, [innings, era, idpitcher], function(error, rows, fields){
+        if (error) {
+
+        // Log the error to the terminal so we know what went wrong, and send the visitor an HTTP response 400 indicating it was a bad request.
+        console.log(error);
+        res.sendStatus(400);
+        }
+
+        // If there was no error, we run our second query and return that data so we can use it to update the people's
+        // table on the front-end
+        else
+        {
+            // Run the second query
+            db.pool.query(selectPitchers, [idpitcher], function(error, rows, fields) {
+
+                if (error) {
+                    console.log(error);
+                    res.sendStatus(400);
+                } else {
+                    res.send(rows);
+                }
+            })
+        }
+})});
+
+
 
 
 module.exports = router;

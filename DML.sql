@@ -68,8 +68,8 @@ INSERT INTO pitchers (inningspitched, earnedrunsaverage, players_idplayer) VALUE
 
 -- Update a pitcher
 UPDATE pitchers
-SET inningspitched = :inningspitchedInput, earnedrunsaverage = :earnedrunsaverageInput, players_playername = IF(:players_playernameInput = '', NULL, :players_playernameInput)
-WHERE players_playername = :players_playernameInput
+SET inningspitched = :inningspitchedInput, earnedrunsaverage = :earnedrunsaverageInput
+WHERE idpitcher = :idpitcher
 
 -- Delete a pitcher
 DELETE FROM pitchers WHERE players_playername = :players_playernameInput

@@ -63,7 +63,6 @@
 
 </form>
 
-
 <h3>Search Pitchers</h3>
 <p>Search by name using the field below</p>
 <form id="search-player-html" method='GET' action='/pitchers'>
@@ -73,3 +72,27 @@
     <input type="submit">
     <a href='/pitchers'><button>Reset</button></a>
 </form>
+
+<h3>Update a Pitcher</h3>
+<p>To update a specific pitcher, select their name from the drop-down menu on the left and enter their information on the right</p>
+<form id="update-pitcher-form">
+
+    <label for="input-idpitcher">Player name: </label>
+    <select name="input-idpitcher" id="mySelect" required>
+        <option value="">Select a Pitcher</option>
+        {{#each data}}
+            <option value="{{this.idpitcher}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-innings">Innings Pitched: </label>
+    <input type="number" step="0.1" name="input-innings" id="input-innings-update">
+
+    <label for="input-era">Earned Runs Average: </label>
+    <input type="number" step="0.1" name="input-era" id="input-era-update">
+
+    <input type="submit">
+
+</form>
+<script src="./js/pitchers/update_pitcher.js"></script>
+

@@ -75,7 +75,7 @@ updatePlayerForm.addEventListener("submit", function (e) {
 
 function updateRow(data, playername){
     let parsedData = JSON.parse(data);
-    console.log(parsedData)
+
     let table = document.getElementById("players-table");
 
     for (let i = 0, row; row = table.rows[i]; i++) {
