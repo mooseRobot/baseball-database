@@ -1,2 +1,28 @@
-<h3>Position Players</h3>
+<h2>Position Players</h2>
 <p>Add a position player</p>
+
+<table id="position-table">
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-values={{this.player_name}}>
+            <td>{{this.player_name}}</td>
+            <td>{{this.position}}</td>
+            <td>{{this.batting_average}}</td>
+            <td>{{this.homeruns}}</td>
+            <td>{{this.rbi}}</td>
+             <td><button onclick="deletePitcher('{{this.idpitcher}}')">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
