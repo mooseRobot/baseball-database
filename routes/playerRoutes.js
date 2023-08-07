@@ -28,7 +28,16 @@ router.get('/', function(req, res) {
     // If there is a query string, we assume this is a search, and return desired results
     else
     {
-        query1 = `SELECT * FROM players WHERE playername LIKE "${req.query.playername}%";`
+        query1 = `
+                SELECT
+                    players.playername, 
+                    players.age, 
+                    CASE WHEN players.ispitcher = 1 THEN 'Yes' ELSE 'No' END AS ispitcher, 
+                    CASE WHEN players.isretired = 1 THEN 'Yes' ELSE 'No' END AS isretired, 
+                    CASE WHEN players.isfreeagent = 1 THEN 'Yes' ELSE 'No' END AS isfreeagent, 
+                    players.teams_teamname AS teamname
+                FROM players 
+                WHERE playername LIKE "${req.query.playername}%";`
     }
 
     // Query 2 is the same in both cases

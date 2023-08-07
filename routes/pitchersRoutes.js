@@ -10,20 +10,28 @@ router.get('/', function(req, res) {
     if (req.query.playername === undefined)
     {
         query1 = `
-        SELECT
-            pitchers.idpitcher,
-            pitchers.players_playername AS name,
-            pitchers.inningspitched AS innings_pitched,
-            pitchers.earnedrunsaverage AS earned_runs_average
-        FROM pitchers
-        INNER JOIN players ON pitchers.players_playername = players.playername;
-        `;
+                SELECT
+                    pitchers.idpitcher,
+                    pitchers.players_playername AS name,
+                    pitchers.inningspitched AS innings_pitched,
+                    pitchers.earnedrunsaverage AS earned_runs_average
+                FROM pitchers
+                INNER JOIN players ON pitchers.players_playername = players.playername;
+                `;
     }
 
     // If there is a query string, we assume this is a search, and return desired results
     else
     {
-        query1  =   `SELECT * FROM pitchers WHERE pitchers.players_playername LIKE "${req.query.playername}%";`
+        query1  =   `
+                    SELECT
+                        pitchers.idpitcher,
+                        pitchers.players_playername AS name,
+                        pitchers.inningspitched AS innings_pitched,
+                        pitchers.earnedrunsaverage AS earned_runs_average
+                    FROM pitchers
+                    INNER JOIN players ON pitchers.players_playername = players.playername 
+                    WHERE playername LIKE "${req.query.playername}%";`
     }
 
     // Query 2 is the same in both cases
