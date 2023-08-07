@@ -6,7 +6,7 @@
 SET FOREIGN_KEY_CHECKS=0;
 SET AUTOCOMMIT = 0;
 
--- Create teams table. 
+-- Create teams table
 CREATE TABLE teams (
     teamname VARCHAR(55) NOT NULL,
     location VARCHAR(45) NOT NULL,
@@ -18,10 +18,10 @@ CREATE TABLE teams (
 -- teams sample data
 INSERT INTO teams (teamname, location, gameswon, gameslost) VALUES
 ('Rays', 'Tampa Bay', 58, 35),
-('Guardians', 'Cleveland', 45, 45),
+('Guardians', 'Cleaveland', 45, 45),
 ('Rangers', 'Texas', 52, 39),
 ('Braves', 'Atlanta', 60, 29),
-('Reds', 'Cincinnati', 50, 41),
+('Reds', 'Cincinatti', 50, 41),
 ('Dodgers', 'Los Angeles', 51, 38),
 ('Padres', 'San Diego', 44, 48),
 ('Cardinals', 'St. Louis', 38, 53),
@@ -43,8 +43,8 @@ CREATE TABLE games (
 
 INSERT INTO games (winningteam, losingteam, winningscore, losingscore, location)
 VALUES ("Braves", "Dodgers", 4, 3, "Atlanta"),
-("Rays", "Braves", 10, 4, "Tampa Bay"),
-("Dodgers", "Reds", 6, 0, "Cincinnati");
+("Rays", "Braves", 10, 4, "Tampa_Bay"),
+("Dodgers", "Reds", 6, 0, "Cincinatti");
 
 
 -- Create games_has_teams intersection table
@@ -61,6 +61,7 @@ CREATE TABLE games_has_teams (
 
 INSERT INTO games_has_teams ( games_idgame, teams_teamname )
 VALUES (1, (SELECT teamname FROM teams WHERE teamname="Dodgers" ) ),
+(1, (SELECT teamname FROM teams WHERE teamname="Braves" ) ),
 ( 2, (SELECT teamname FROM teams WHERE teamname="Rays" ) ),
 ( 3, (SELECT teamname FROM teams WHERE teamname="Reds" ) );
 
@@ -147,13 +148,15 @@ CREATE TABLE position_players (
 -- position players sample data
 
 INSERT INTO position_players (position, battingaverage, homeruns, rbi, players_playername) 
-VALUES ('right field', 0.276, 26, 62, (SELECT playername FROM players WHERE playername="Mookie Betts")),
-('designated hitter', .296, 703, 2218,  (SELECT playername FROM players WHERE playername="Albert Pujols") ),
+VALUES ('right_field', 0.276, 26, 62, (SELECT playername FROM players WHERE playername="Mookie Betts")),
+('designated_hitter', .296, 703, 2218,  (SELECT playername FROM players WHERE playername="Albert Pujols") ),
 ('n/a', .302, 32, 71, (SELECT playername FROM players WHERE playername="Shohei Ohtani"));
 
 
 -- Turn FK check on and commit
 SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
+
+
 
 
