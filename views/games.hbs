@@ -1,0 +1,95 @@
+<h2>Games</h2>
+<p>Add a game</p>
+
+<table id="games-table">
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.idgame}}>
+            <td>{{this.idgame}}</td>
+            <td>{{this.winningteam}}</td>
+            <td>{{this.losingteam}}</td>
+            <td>{{this.winningscore}}</td>
+            <td>{{this.losingscore}}</td>
+            <td>{{this.location}}</td>
+            <td><button onclick="deleteGame('{{this.idgame}}')">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<h3>Add a baseball game</h3>
+<p>To add a new game, please enter their information below and click `Submit`!</p>
+<form id="add-game-form" method="POST" action="/games/add">
+    
+    <label for="input-winningteam" class="form-required">Winning Team: </label>
+    <input type="text" name="input-winningteam" id="input-winningteam" required>
+
+    <label for="input-losingteam" class="form-required">Losing Team: </label>
+    <input type="text" name="input-losingteam" id="input-losingteam" required>
+
+    <label for="input-winningscore" class="form-required">Winning Score: </label>
+    <input type="number" name="input-winningscore" id="input-winningscore" required>
+
+    <label for="input-losingscore" class="form-required">Losing Score: </label>
+    <input type="text" name="input-losingscore" id="input-losingscore" required>
+
+    <label for="input-location" class="form-required">Location: </label>
+    <input type="text" name="input-location" id="input-location" required>
+
+
+    <input type="submit">
+</form>
+
+<h3>Search Games</h3>
+<p>Search by game using the field below</p>
+<form id="search-game-html" method='GET' action='/games'>
+    <label for="input-idgame">Search by Game: </label>
+    <input type="text" name="idgame" id="input-idgame-html-search">
+    
+    <input type="submit">
+    <a href='/games'><button>Reset</button></a>
+</form>
+
+
+
+
+<h3>Update a Game</h3>
+<p>To update a specific game, select their name from the drop-down menu on the left and enter their information on the right</p>
+<form id="update-game-form">
+
+    <label for="input-idgame" class="form-required">Select a Game: </label>
+    <select name="input-idgame" id="mySelect" required>
+        <option value="">Select a Team</option>
+        {{#each data}}
+            <option value="{{this.idgame}}">{{this.idgame}}</option>
+        {{/each}}
+    </select>
+
+
+
+
+
+    <label for="input-winningscore" class="form-required">Winning Score: </label>
+    <input type="number" step="0.1" name="input-winningscore" id="input-winningscore-update">
+
+    <label for="input-losingscore" class="form-required">Losing Score: </label>
+    <input type="number" step="0.1" name="input-losingscore" id="input-losingscore-update">
+
+
+    <input type="submit">
+
+</form>
+<script src="./js/games/update_game.js"></script>
+
+{{!-- <script src="./js/games/delete_game.js"></script> --}}
