@@ -27,6 +27,7 @@ const playerRoutes = require('./routes/playerRoutes');
 const pitchersRoutes = require('./routes/pitchersRoutes');
 const positionPlayersRoutes = require('./routes/positionPlayersRoutes');
 const gamesRoutes = require('./routes/gamesRoutes');
+const gamesAndTeamsRoutes = require('./routes/gamesAndTeamsRoutes');
 
 // Use the route handlers
 app.use('/', homeRoutes);
@@ -35,6 +36,7 @@ app.use('/players', playerRoutes);
 app.use('/pitchers', pitchersRoutes)
 app.use('/positionplayers', positionPlayersRoutes);
 app.use('/games', gamesRoutes);
+app.use('/gamesandteams', gamesAndTeamsRoutes);
 
 /*
     LISTENER

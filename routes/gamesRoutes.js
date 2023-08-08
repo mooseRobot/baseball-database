@@ -26,6 +26,9 @@ router.get('/', (req, res) => {
         
         // Save the people
         let games = rows;
+
+        return res.render('games', {data: games, games: games});
+        
     })
 });
 
@@ -66,6 +69,7 @@ router.post('/add', function(req, res){
         }
     })
 });
+;
 
 
 router.put('/update', function(req,res,next){

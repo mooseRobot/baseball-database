@@ -61,9 +61,9 @@ CREATE TABLE games_has_teams (
 
 INSERT INTO games_has_teams ( games_idgame, teams_teamname )
 VALUES (1, (SELECT teamname FROM teams WHERE teamname="Dodgers" ) ),
-(1, (SELECT teamname FROM teams WHERE teamname="Braves" ) ),
+( 1, (SELECT teamname FROM teams WHERE teamname="Braves" ) ),
 ( 2, (SELECT teamname FROM teams WHERE teamname="Rays" ) ),
-( 3, (SELECT teamname FROM teams WHERE teamname="Reds" ) );
+( 2, (SELECT teamname FROM teams WHERE teamname="Braves" ) );
 
 
 

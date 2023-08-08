@@ -1,0 +1,27 @@
+<h2>Games/Teams Intersection Table</h2>
+
+<table id="game-teams-table">
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>Delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr data-value={{this.idgame}}>
+            <td>{{this.idgame}}</td>
+            <td>{{this.winningteam}}</td>
+            <td>{{this.losingteam}}</td>
+            <td>{{this.winningscore}}</td>
+            <td>{{this.losingscore}}</td>
+            <td>{{this.location}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
