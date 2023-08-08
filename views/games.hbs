@@ -33,10 +33,20 @@
 <form id="add-game-form" method="POST" action="/games/add">
     
     <label for="input-winningteam" class="form-required">Winning Team: </label>
-    <input type="text" name="input-winningteam" id="input-winningteam" required>
+    <select name="input-winningteam" id="input-winningteam" required>
+        <option value="">Winning Team</option>
+        {{#each teams}}
+            <option value="{{this.teamname}}">{{this.teamname}}</option>
+        {{/each}}
+    </select>
 
     <label for="input-losingteam" class="form-required">Losing Team: </label>
-    <input type="text" name="input-losingteam" id="input-losingteam" required>
+    <select name="input-losingteam" id="input-losingteam" required>
+        <option value="">Losing Team</option>
+        {{#each teams}}
+            <option value="{{this.teamname}}">{{this.teamname}}</option>
+        {{/each}}
+    </select>
 
     <label for="input-winningscore" class="form-required">Winning Score: </label>
     <input type="number" name="input-winningscore" id="input-winningscore" required>
@@ -62,8 +72,6 @@
 </form>
 
 
-
-
 <h3>Update a Game</h3>
 <p>To update a specific game, select their name from the drop-down menu on the left and enter their information on the right</p>
 <form id="update-game-form">
@@ -77,19 +85,15 @@
     </select>
 
 
-
-
-
     <label for="input-winningscore" class="form-required">Winning Score: </label>
-    <input type="number" step="0.1" name="input-winningscore" id="input-winningscore-update">
+    <input type="number" name="input-winningscore" id="input-winningscore-update">
 
     <label for="input-losingscore" class="form-required">Losing Score: </label>
-    <input type="number" step="0.1" name="input-losingscore" id="input-losingscore-update">
+    <input type="number" name="input-losingscore" id="input-losingscore-update">
 
 
     <input type="submit">
 
 </form>
 <script src="./js/games/update_game.js"></script>
-
-{{!-- <script src="./js/games/delete_game.js"></script> --}}
+<script src="./js/games/delete_game.js"></script>

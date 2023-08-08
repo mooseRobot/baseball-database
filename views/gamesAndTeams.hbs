@@ -8,19 +8,14 @@
                 {{@key}}
             </th>
             {{/each}}
-            <th>Delete</th>
         </tr>
     </thead>
 
     <tbody>
         {{#each data}}
         <tr data-value={{this.idgame}}>
-            <td>{{this.idgame}}</td>
-            <td>{{this.winningteam}}</td>
-            <td>{{this.losingteam}}</td>
-            <td>{{this.winningscore}}</td>
-            <td>{{this.losingscore}}</td>
-            <td>{{this.location}}</td>
+            <td>{{this.game_id}}</td>
+            <td>{{this.team_name}}</td>
         </tr>
         {{/each}}
     </tbody>

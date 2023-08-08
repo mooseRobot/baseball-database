@@ -78,10 +78,10 @@ table {
 }
  
 tbody tr:nth-child(even) {
-    background: #9abbd9;
+    background: #8bb2d3;
 }
 thead {
-    background: #9abbd9;
+    background: #8bb2d3;
 }
 
 caption {
