@@ -15,18 +15,59 @@
 
     <tbody>
         {{#each data}}
-        <tr data-values={{this.player_name}}>
-            <td>{{this.player_name}}</td>
+        <tr data-values={{this.position}}>
             <td>{{this.position}}</td>
-            <td>{{this.batting_average}}</td>
+            <td>{{this.battingaverage}}</td>
             <td>{{this.homeruns}}</td>
             <td>{{this.rbi}}</td>
-             <td><button onclick="deletePitcher('{{this.idpitcher}}')">Delete</button></td>
+            <td>{{this.players_playername}}</td>
+             <td><button onclick="deletePosition('{{this.position}}')">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
 </table>
 
+
 <h3>Add a position player here</h3>
-<p>To add a new position player, please select the pitchers from below enter their information below and click `Submit`!</p>
-<p>If the pitcher you want to add is not listed below, navigate to our <a href=players>players</a> page and add the pitcher there.</p>
+<p>To add a new position player, please select the players from below enter their information below and click `Submit`!</p>
+
+<form id="add-position-form" method="POST" action="/positionPlayers/add">
+
+
+
+      <label for="input-players_playername" class="form-required">Select a Player: </label>
+    <select name="input-players_playername" id="anotherSelect" required>
+        <option value="">Select a Player</option>
+        {{#each positionsFromPlayers}}
+            <option value="{{this.playername}}">{{this.playername}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-position" class="form-required">Position: </label>
+    <input type="text" name="input-position" id="input-position"  required>
+
+    <label for="input-battingaverage" class="form-required">Batting Average: </label>
+    <input type="number" step="0.1" name="input-battingaverage" id="input-battingaverage"  required>
+
+    <label for="input-homeruns" class="form-required">Home runs: </label>
+    <input type="number" step="0.1" name="input-homeruns" id="input-homeruns" required>
+
+    <label for="input-rbi" class="form-required">Runs Batted In: </label>
+    <input type="number" step="0.1" name="input-rbi" id="input-rbi" required>   
+    
+    <input type="submit">
+
+</form>
+
+<h3>Search Position Players</h3>
+<p>Search by name using the field below</p>
+<form id="search-position-html" method='GET' action='/positionPlayers'>
+    <label for="input-position">Search by Position Player Name: </label>
+    <input type="text" name="position" id="input-position-html-search">
+    
+    <input type="submit">
+    <a href='/positionPlayers'><button>Reset</button></a>
+</form>
+
+
+
