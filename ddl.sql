@@ -18,10 +18,10 @@ CREATE TABLE teams (
 -- teams sample data
 INSERT INTO teams (teamname, location, gameswon, gameslost) VALUES
 ('Rays', 'Tampa Bay', 58, 35),
-('Guardians', 'Cleaveland', 45, 45),
+('Guardians', 'Cleveland', 45, 45),
 ('Rangers', 'Texas', 52, 39),
 ('Braves', 'Atlanta', 60, 29),
-('Reds', 'Cincinatti', 50, 41),
+('Reds', 'Cincinnati', 50, 41),
 ('Dodgers', 'Los Angeles', 51, 38),
 ('Padres', 'San Diego', 44, 48),
 ('Cardinals', 'St. Louis', 38, 53),
@@ -43,8 +43,8 @@ CREATE TABLE games (
 
 INSERT INTO games (winningteam, losingteam, winningscore, losingscore, location)
 VALUES ("Braves", "Dodgers", 4, 3, "Atlanta"),
-("Rays", "Braves", 10, 4, "Tampa_Bay"),
-("Dodgers", "Reds", 6, 0, "Cincinatti");
+("Rays", "Braves", 10, 4, "Tampa Bay"),
+("Dodgers", "Reds", 6, 0, "Cincinnati");
 
 
 -- Create games_has_teams intersection table
@@ -61,31 +61,10 @@ CREATE TABLE games_has_teams (
 
 INSERT INTO games_has_teams ( games_idgame, teams_teamname )
 VALUES (1, (SELECT teamname FROM teams WHERE teamname="Dodgers" ) ),
-( 1, (SELECT teamname FROM teams WHERE teamname="Braves" ) ),
+(1, (SELECT teamname FROM teams WHERE teamname="Braves" ) ),
 ( 2, (SELECT teamname FROM teams WHERE teamname="Rays" ) ),
-( 2, (SELECT teamname FROM teams WHERE teamname="Braves" ) );
+( 3, (SELECT teamname FROM teams WHERE teamname="Reds" ) );
 
-
-
--- Create coaches table
-CREATE TABLE coaches (
-    idcoach INT AUTO_INCREMENT,
-    coachname VARCHAR(45) NOT NULL,
-    yearscoached INT NOT NULL,
-    championshipswon INT NOT NULL,
-    teams_teamname VARCHAR(45) NOT NULL,
-    PRIMARY KEY (idcoach),
-    FOREIGN KEY (teams_teamname) REFERENCES teams(teamname)
-    ON DELETE CASCADE
-);
-
-
--- coaches sample data
-
-INSERT INTO coaches ( coachname, yearscoached, championshipswon, teams_teamname)
-VALUES ("Dave Roberts", 8, 1, (SELECT teamname FROM teams WHERE teamname="Dodgers" )),
-("Kevin Cash", 8, 0, (SELECT teamname FROM teams WHERE teamname="Rays" )),
-("Brian Snitker", 7, 1, (SELECT teamname FROM teams WHERE teamname="Braves" ));
 
 
 
