@@ -19,6 +19,7 @@ function deletePosition(idposition) {
 
 function deleteRow(idposition){
     let table = document.getElementById("position-table");
+    console.log(idposition)
     for (let i = 0, row; row = table.rows[i]; i++) {
        if (table.rows[i].getAttribute("data-value") == idposition) {
             table.deleteRow(i);
