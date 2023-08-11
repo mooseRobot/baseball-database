@@ -40,7 +40,7 @@ router.get('/', function(req, res) {
     // Query 3 selects all the pitchers
     let query3  =   `SELECT * FROM players 
                     LEFT JOIN pitchers ON players.playername = pitchers.players_playername
-                    WHERE (players.ispitcher = 1 and idpitcher IS Null);`;
+                    WHERE (players.ispitcher = 1 and pitchers.idpitcher IS Null);`;
 
     // Run the 1st query
     db.pool.query(query1, function(error, rows, fields){
@@ -134,11 +134,11 @@ router.put('/update', function(req,res,next) {
 router.delete('/delete', function(req, res, next) {
     let data = req.body;
     let idpitcher = data.id;
-    let queryDeletePitcher = `DELETE FROM pitchers WHERE idpitcher = ?`
+    let queryDeletePitcher = `DELETE FROM pitchers WHERE idpitcher = ?;`
     db.pool.query(queryDeletePitcher, [idpitcher], function(error, rows, fields){
         if (error) {
-        console.log(error);
-        res.sendStatus(400);
+            console.log(error);
+            res.sendStatus(400);
         } else {
             res.sendStatus(204);
         }

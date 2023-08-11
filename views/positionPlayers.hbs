@@ -15,13 +15,13 @@
 
     <tbody>
         {{#each data}}
-        <tr data-values={{this.position}}>
+        <tr data-values={{this.player_name}}>
+            <td>{{this.player_name}}</td>
             <td>{{this.position}}</td>
-            <td>{{this.battingaverage}}</td>
+            <td>{{this.batting_average}}</td>
             <td>{{this.homeruns}}</td>
             <td>{{this.rbi}}</td>
-            <td>{{this.players_playername}}</td>
-             <td><button onclick="deletePosition('{{this.position}}')">Delete</button></td>
+             <td><button onclick="deletePosition('{{this.player_name}}')">Delete</button></td>
         </tr>
         {{/each}}
     </tbody>
@@ -32,8 +32,6 @@
 <p>To add a new position player, please select the players from below enter their information below and click `Submit`!</p>
 
 <form id="add-position-form" method="POST" action="/positionPlayers/add">
-
-
 
       <label for="input-players_playername" class="form-required">Select a Player: </label>
     <select name="input-players_playername" id="anotherSelect" required>
@@ -63,11 +61,11 @@
 <p>Search by name using the field below</p>
 <form id="search-position-html" method='GET' action='/positionPlayers'>
     <label for="input-position">Search by Position Player Name: </label>
-    <input type="text" name="position" id="input-position-html-search">
+    <input type="text" name="player_name" id="input-position-html-search">
     
     <input type="submit">
     <a href='/positionPlayers'><button>Reset</button></a>
 </form>
 
-
-
+{{!-- <script src="../public/js/positionPlayers/add_position.js"></script> --}}
+<script src="./js/positionPlayers/add_position.js"></script>

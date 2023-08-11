@@ -41,10 +41,16 @@ router.get('/', function(req, res) {
     let query1;
 
     // If there is no query string, we just perform a basic SELECT
-    if (req.query.position === undefined)
+    if (req.query.player_name === undefined)
     {
         query1 = `
-                SELECT * FROM position_players;
+                SELECT
+                    position_players.players_playername AS player_name,
+                    position_players.position,
+                    position_players.battingaverage AS batting_average,
+                    position_players.homeruns, position_players.rbi
+                FROM position_players
+                INNER JOIN players ON position_players.players_playername = players.playername;
                 `;
                 
     }
@@ -53,17 +59,22 @@ router.get('/', function(req, res) {
     else
     {
         query1  =   `
-                    SELECT * FROM position_players WHERE position LIKE "${req.query.position}%";`;
-                    
+                    SELECT
+                        position_players.players_playername AS player_name,
+                        position_players.position,
+                        position_players.battingaverage AS batting_average,
+                        position_players.homeruns, position_players.rbi
+                    FROM position_players
+                    WHERE position_players.players_playername LIKE "${req.query.player_name}%";`;          
     }
 
     // Query 2 is the same in both cases
     let query2  =   "SELECT * FROM teams;";
 
     // Query 3 selects all the pitchers
-    let query3  =   `SELECT * FROM players 
+    let query3  =   `SELECT playername FROM players 
                     LEFT JOIN position_players ON players.playername = position_players.players_playername
-                    WHERE (players.ispitcher = 0);`;
+                    WHERE (players.ispitcher = 0 AND position_players.position IS Null);`;
 
     // Run the 1st query
     db.pool.query(query1, function(error, rows, fields){
@@ -86,15 +97,6 @@ router.get('/', function(req, res) {
         })
     })
 });
-
-
-
-
-
-
-
-
-
 
 
 router.post('/add', function(req, res) {
@@ -123,6 +125,19 @@ router.post('/add', function(req, res) {
 })
 
 
+router.delete('/delete', function(req, res) {
+    let data = req.body;
+    let idposition = data.id;
+    let queryDeletePositionPlayer = 'DELETE FROM position_players WHERE players_playername = ?;'
+    db.pool.query(queryDeletePositionPlayer, [idposition], function(error, rows, field) {
+        if (error) {
+            console.log(error)
+            res.sendStatus(400)
+        } else {
+            res.sendStatus(204)
+        }
+    });
+});
 
 
 
