@@ -14,15 +14,26 @@ router.get('/', (req, res) => {
                 FROM games_has_teams;`;
     }
 
+    // For delete statement
+    let query2 = `
+                SELECT
+                    games_idgame as game_id
+                FROM games_has_teams
+                GROUP BY game_id`
+
     // Run the 1st query
     db.pool.query(query1, function(error, rows, fields){
         
         // Save the people
         let gamesTeams = rows;
-
-        return res.render('gamesAndTeams', {data: gamesTeams});
         
-    })
+        // Run second query
+        db.pool.query(query2, function(error, rows, fields) {
+            let gameIds = rows;
+
+            return res.render('gamesAndTeams', {data: gamesTeams, gameIds: gameIds});
+        });
+    });
 });
 
 module.exports = router;
