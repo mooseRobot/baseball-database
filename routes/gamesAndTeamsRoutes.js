@@ -36,4 +36,19 @@ router.get('/', (req, res) => {
     });
 });
 
+router.delete('/delete', function(req, res, next) {
+    let data = req.body;
+    let idgame = data.id;
+    let queryDeleteGame = 'DELETE FROM games WHERE idgame = ?';
+    db.pool.query(queryDeleteGame, [idgame], function(error, rows, field) {
+        if (error) {
+            console.log(error);
+            res.sendStatus(400);
+        } else {
+            res.sendStatus(204);
+        };
+    });
+});
+
+
 module.exports = router;
