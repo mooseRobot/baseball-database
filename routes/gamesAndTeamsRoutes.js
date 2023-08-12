@@ -12,6 +12,13 @@ router.get('/', (req, res) => {
                     games_idgame as game_id,
                     teams_teamname as team_name
                 FROM games_has_teams;`;
+    } else {
+        query1 = `
+                SELECT
+                    games_idgame as game_id,
+                    teams_teamname as team_name
+                FROM games_has_teams
+                WHERE games_idgame LIKE "${req.query.idgame}%";`;
     }
 
     // For delete statement
