@@ -23,10 +23,10 @@ This project is part of a school assignment and is not intended for production u
 
 ## :speech_balloon: General Citation
 
-URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
-Accessed July 27, 2023 through August 11, 2023
-Title: nodejs-starter-app
-Type: source code
-produced by: currym-osu (Michael L. Curry), gkochera (George Kochera), Cortona1, dmgs11
-Version dates: March 20, 2021 — November 15, 2022
+- URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app/tree/main
+- Accessed July 27, 2023 through August 11, 2023
+- Title: nodejs-starter-app
+- Type: source code
+- produced by: currym-osu (Michael L. Curry), gkochera (George Kochera), Cortona1, dmgs11
+- Version dates: March 20, 2021 — November 15, 2022
  
