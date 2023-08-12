@@ -1,6 +1,12 @@
 -- Query for add a new character functionality with colon : character being used to 
 -- denote the variables that will have data from the backend programming language
 
+-- Citation for the following SQL query:
+-- Date: 07/27/2023
+-- Adapted from
+-- Simple method to convert a bit type to a readable 'Yes' or 'No'.
+-- Source URL: https://stackoverflow.com/questions/6008519/convert-bit-type-to-yes-or-no-by-query-sql-server-2005
+
 
 -- Drop down queries
 SELECT playername FROM players
@@ -28,7 +34,6 @@ DELETE FROM teams WHERE teamname = :teamnameInput;
 -- Players page
 ----------------------
 -- Get all players for players page
--- CASE WHEN from here https://stackoverflow.com/questions/6008519/convert-bit-type-to-yes-or-no-by-query-sql-server-2005
 SELECT
 	players.playername, 
     players.age, 

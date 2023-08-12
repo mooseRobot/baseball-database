@@ -1,5 +1,12 @@
 // App.js
 
+// Citation for the following route configuration:
+// Date: 07/31/2023
+// Adapted from
+// Methods to separate app.use route configurations into different files.
+// Source URL: https://stackoverflow.com/questions/69350415/how-to-separate-app-use-to-different-file
+
+
 /*
     SETUP
 */
