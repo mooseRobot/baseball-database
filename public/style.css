@@ -1,3 +1,12 @@
+/* Citation for the following CSS styling:
+   Date: 07/15/2023
+   Adapted from
+   The styling parameters have been modified, 
+   and color schemes adjusted to better match the project's theme.
+   Source URL: https://www.youtube.com/watch?v=FEmysQARWFU
+*/
+
+
 body {
     background-color: rgb(183, 206, 228);
 };
@@ -82,8 +91,4 @@ tbody tr:nth-child(even) {
 }
 thead {
     background: #8bb2d3;
-}
-
-caption {
-    font-size: 0.8rem;
 }
