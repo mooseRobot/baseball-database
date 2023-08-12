@@ -31,6 +31,40 @@
     <a href='/gamesandteams'><button>Reset</button></a>
 </form>
 
+<h3>Add a M:N relationship</h3>
+<p>Add a game-team M:N Relationship</p>
+<form id="add-game-team-form" method="POST" action="/gamesandteams/add">
+    
+    <label for="input-winningteam" class="form-required">Winning Team: </label>
+    <select name="input-winningteam" id="input-winningteam" required>
+        <option value="">Winning Team</option>
+        {{#each teams}}
+            <option value="{{this.teamname}}">{{this.teamname}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-losingteam" class="form-required">Losing Team: </label>
+    <select name="input-losingteam" id="input-losingteam" required>
+        <option value="">Losing Team</option>
+        {{#each teams}}
+            <option value="{{this.teamname}}">{{this.teamname}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-winningscore" class="form-required">Winning Score: </label>
+    <input type="number" name="input-winningscore" id="input-winningscore" required>
+
+    <label for="input-losingscore" class="form-required">Losing Score: </label>
+    <input type="text" name="input-losingscore" id="input-losingscore" required>
+
+    <label for="input-location" class="form-required">Location: </label>
+    <input type="text" name="input-location" id="input-location" required>
+
+
+    <input type="submit">
+</form>
+
+
 <h3>Delete a Game</h3>
 <p>Delete a M:N relationship</p>
 <form id="delete-game-team-drop-down-form">
